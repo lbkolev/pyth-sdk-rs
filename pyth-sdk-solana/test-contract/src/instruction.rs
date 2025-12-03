@@ -42,11 +42,10 @@ pub fn divide(numerator: Price, denominator: Price) -> Instruction {
     Instruction {
         program_id: id(),
         accounts:   vec![],
-        data:       PythClientInstruction::Divide {
+        data:       borsh::to_vec(&PythClientInstruction::Divide {
             numerator,
             denominator,
-        }
-        .try_to_vec()
+        })
         .unwrap(),
     }
 }
@@ -55,9 +54,7 @@ pub fn multiply(x: Price, y: Price) -> Instruction {
     Instruction {
         program_id: id(),
         accounts:   vec![],
-        data:       PythClientInstruction::Multiply { x, y }
-            .try_to_vec()
-            .unwrap(),
+        data:       borsh::to_vec(&PythClientInstruction::Multiply { x, y }).unwrap(),
     }
 }
 
@@ -65,7 +62,7 @@ pub fn add(x: Price, y: Price) -> Instruction {
     Instruction {
         program_id: id(),
         accounts:   vec![],
-        data:       PythClientInstruction::Add { x, y }.try_to_vec().unwrap(),
+        data:       borsh::to_vec(&PythClientInstruction::Add { x, y }).unwrap(),
     }
 }
 
@@ -73,9 +70,7 @@ pub fn scale_to_exponent(x: Price, expo: i32) -> Instruction {
     Instruction {
         program_id: id(),
         accounts:   vec![],
-        data:       PythClientInstruction::ScaleToExponent { x, expo }
-            .try_to_vec()
-            .unwrap(),
+        data:       borsh::to_vec(&PythClientInstruction::ScaleToExponent { x, expo }).unwrap(),
     }
 }
 
@@ -83,7 +78,7 @@ pub fn normalize(x: Price) -> Instruction {
     Instruction {
         program_id: id(),
         accounts:   vec![],
-        data:       PythClientInstruction::Normalize { x }.try_to_vec().unwrap(),
+        data:       borsh::to_vec(&PythClientInstruction::Normalize { x }).unwrap(),
     }
 }
 
@@ -92,6 +87,6 @@ pub fn noop() -> Instruction {
     Instruction {
         program_id: id(),
         accounts:   vec![],
-        data:       PythClientInstruction::Noop.try_to_vec().unwrap(),
+        data:       borsh::to_vec(&PythClientInstruction::Noop).unwrap(),
     }
 }
